@@ -79,7 +79,8 @@ YB = model_evaluation(myfun,XB,rain,evap,flow) ; % size (N,1)
 YC = model_evaluation(myfun,XC,rain,evap,flow) ; % size (N*M,1)
 
 % Compute main (first-order) and total effects:
-[ Si, STi ] = vbsa_indices(YA,YB,YC);
+[ Si, STi,Si_sd, STi_sd] = vbsa_indices(YA,YB,YC,N);
+
 
 % Plot results:
 X_Labels = {'Sm','beta','alfa','Rs','Rf'} ;
