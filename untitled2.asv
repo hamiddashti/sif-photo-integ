@@ -1,0 +1,55 @@
+clear all 
+ 
+h = 6.626e-34
+c = 3.0e+8
+k = 1.38e-23
+
+function intensity = planck(wav, T)
+a = 2.0*h*c*2
+b = h*c/(wav*k*T)
+intensity = a/ ( (wav**5) * (np.exp(b) - 1.0) )
+return
+
+
+function ave = average1(x)
+    ave = sum(x(:))/numel(x); 
+return ave
+z = 1:99;
+ave = average1(z)
+
+
+
+
+
+average(1)
+function E = ephoton(lambda,constants)
+%E = phot2e(lambda) calculates the energy content (J) of 1 photon of
+%wavelength lambda (m)
+
+h       = constants.h;           % [J s]         Planck's constant
+c       = constants.c;           % [m s-1]       speed of light
+E       = h*c./lambda;           % [J]           energy of 1 photon
+return;
+
+
+par= 680 %[w m-2]
+T = 5777
+
+wav = np.arange(400,700)*1e-9
+
+B = planck(wav, T)
+
+
+
+x = 2*pi/3;
+y = myIntegrand(x)
+
+% Compute the area under the curve from 0 to pi.
+xmin = 0;
+xmax = pi;
+f = @myIntegrand;
+a = integral(f,xmin,xmax)
+
+function y = myIntegrand(x)
+    y = sin(x).^3;
+end

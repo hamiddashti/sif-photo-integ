@@ -1,0 +1,10 @@
+%% Step 1: set paths
+
+my_dir = pwd ; % use the 'pwd' command if you have already setup the Matlab
+% current directory to the SAFE directory. Otherwise, you may define
+% 'my_dir' manually by giving the path to the SAFE directory, e.g.:
+% my_dir = '/Users/francescapianosi/Documents/safe_R1.0';
+
+% Set current directory to 'my_dir' and add path to sub-folders:
+cd(my_dir)
+addpath(genpath(my_dir))
