@@ -60,22 +60,29 @@ P = length(tmp) ; % number of model output
 
 N = size(X,1);
 Y = nan(N,P) ;
-
+% hw = waitbar(0,'Running...');
 if (NumExtraArgIn>0)&&(NumExtraArgOut>0)
     for j=1:N
         [Y(j,:),varargout{1:NumExtraArgOut}] = feval(fun_test,X(j,:),varargin{1:NumExtraArgIn}) ;
+%         waitbar(j/N,hw);
+        
     end
 elseif (NumExtraArgIn>0)&&(NumExtraArgOut<=0)
     for j=1:N
         Y(j,:) = feval(fun_test,X(j,:),varargin{1:NumExtraArgIn}) ;
+%         waitbar(j/N,hw);
+        
     end
 elseif (NumExtraArgIn<=0)&&(NumExtraArgOut>0)
     for j=1:N
         [Y(j,:),varargout{1:NumExtraArgOut}] = feval(fun_test,X(j,:)) ;
+%         waitbar(j/N,hw);
+     
     end
 else
     for j=1:N
         Y(j,:) = feval(fun_test,X(j,:)) ;
+     
     end
 end
 

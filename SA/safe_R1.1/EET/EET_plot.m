@@ -46,9 +46,9 @@ nb_legend = 5  ; % number of input names that will be displayed in the legend
 % (printer-friendly). Furthermore, you can use matlab colourmaps or
 % repeat 5 'easy-to-distinguish' colours (see http://colorbrewer2.org/).
 % Option 1a - coloured using colorbrewer: uncomment the following line:
-col = [[228,26,28];[55,126,184];[77,175,74];[152,78,163];[255,127,0]]/256;  cc = 'k' ;
+% col = [[228,26,28];[55,126,184];[77,175,74];[152,78,163];[255,127,0]]/256;  cc = 'k' ;
 % Option 1b - coloured using matlab colormap: uncomment the following line:
-%col=hsv(length(mi));   cc = 'k' ;
+col=hsv(length(mi));   cc = 'k' ;
 % Option 1a - B&W using matlab colorbrewer: uncomment the following line:
 %col = [[37 37 37];[90 90 90];[150 150 150];[189 189 189];[217 217 217]]/256; cc = 'w' ;
 % Option 1b - B&W using matlab colormap: uncomment the following line:
@@ -144,12 +144,12 @@ if sorting
     for i=1:M; labelinput_new{i} = labelinput{Sidx(i)} ;end;
 end
 
-if nb_legend<M
-    labelinput_new=labelinput_new(1:nb_legend);
-    labelinput_new{end}=[labelinput_new{end},'...'];
-end
+% if nb_legend<M
+%     labelinput_new=labelinput_new(1:nb_legend);
+%     labelinput_new{end}=[labelinput_new{end},'...'];
+% end
 
-figure
+% figure
 hold on
 
 % First plot EEs mean & std as circles:

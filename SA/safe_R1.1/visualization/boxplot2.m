@@ -29,7 +29,7 @@ function [] = boxplot2(S,varargin)
 % Options for the graphic:
 fn = 'Helvetica' ; % font type of axes, labels, etc.
 %fn = 'Courier' ;
-fs = 20 ; % font size of axes, labels, etc.
+fs = 9 ; % font size of axes, labels, etc.
 
 % Options for the colours:
 ec1  = 'k' ; % color of edges
