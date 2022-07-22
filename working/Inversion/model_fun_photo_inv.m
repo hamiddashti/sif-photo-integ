@@ -1,4 +1,4 @@
-function m = model_fun(v)
+function m = model_fun_photo_inv(v, free_pars)
 
 %% Update input variables
 
@@ -10,9 +10,13 @@ kq, nl, nc, kc, ko, Kc, Ko, ...
 alpha_opt, solve_xcs, ...
 theta1, eps1, eps2] = loadvars_fun(v);
 
+% Optimized variables
+Vcmax = free_pars.vcmax.*1e-6;
+Vqmax = free_pars.vqmax.*1e-6;
+% Vqmax = CB6F.*kq;       % Maximum Cyt b6f activity, mol e-1 m-2 s-1
+% Vcmax = RUB.*kc;        % Maximum Rubisco activity, mol CO2 m-2 s-1
+
 % Calculate derived variables
-Vqmax = CB6F.*kq;       % Maximum Cyt b6f activity, mol e-1 m-2 s-1
-Vcmax = RUB.*kc;        % Maximum Rubisco activity, mol CO2 m-2 s-1
 Rd = Vcmax.*Rds;        % Mitochondrial respiration, mol CO2 m-2 s-1
 S = (kc./Kc).*(Ko./ko); % Rubisco specificity for CO2/O2, dimensionless
 gammas = O./(2.*S);     % CO2 compensation point in the absence of Rd, bar
@@ -149,7 +153,7 @@ PAM3_a = Fs_a./Fm_a; % PhiD + PhiF
 % PAM6_a = (Fmp_a - Fs_a).*Fop_a./((Fmp_a - Fop_a).*Fs_a); % qL
 % PAM7_a = PAM4_a./(1-PAM5_a); % kPuddle
 % PAM8_a = PAM4_a./(1-PAM6_a); % kLake
-% PAM9_a = Fm_a./Fmp_a - 1; % NPQ
+PAM9_a = Fm_a./Fmp_a - 1; % NPQ
 
 % Remove model input variables from workspace
 clearvars   v ...
