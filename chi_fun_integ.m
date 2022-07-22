@@ -31,6 +31,18 @@ leafbio.Cant= x(21);
 leafbio.Cs= 0;
 
 m = model_fun(v);
+if m.phi1F_a <0 | m.phi2F_a <0
+chi2(1) = 0;
+chi2(2) = 0;
+return
+end
+
+if isnan(m.phi1F_a) | isnan(m.phi2F_a) 
+chi2(1) = 0;
+chi2(2) = 0;
+return
+end
+
 leafbio.fqe(1)= m.phi1F_a;
 leafbio.fqe(2)= m.phi2F_a;
 

@@ -23,8 +23,8 @@ clc; % command window
 
 % Set up subdirectories
 currdir = pwd;
-workdir = fullfile(currdir,'/scripts');
-resultsdir = fullfile(currdir,'/outputs');
+workdir = fullfile(currdir,'../scripts');
+resultsdir = fullfile(currdir,'../outputs');
 
 % Get function from symbolic solver
 cd(workdir)

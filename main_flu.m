@@ -1,4 +1,4 @@
-function leafopt = main_flu(spectral, leafbio,optipar,type,E)
+function leafopt = main_flu(spectral, leafbio,optipar,type,E,chlf)
 % type: "not_combined" or "combined". If not combined we use the fluspect
 % with both photosystems if combined we use the fluspect where photosystems
 % are combined. 
@@ -18,10 +18,13 @@ elseif type == "combined"
         disp("Provide one quantum effiency!")
         return
     end
-    [leafopt] = fluspect_B_CX_PSI_PSII_combined(spectral,leafbio3,optipar);
-    leafopt.Fu = (leafopt.MbI+leafopt.MbII)* interp1(spectral.wlM,E,spectral.wlE)';
-    leafopt.Fd = (leafopt.MfI+leafopt.MfII)* interp1(spectral.wlM,E,spectral.wlE)';
-end
+    [leafopt] = fluspect_B_CX_PSI_PSII_combined(spectral,leafbio,optipar);
+    
+    if chlf == true
+    leafopt.Fu         = leafopt.Mb * interp1(spectral.wlM,E,spectral.wlE)';
+    leafopt.Fd         = leafopt.Mf * interp1(spectral.wlM,E,spectral.wlE)';
+    end
+ end
 end
 
 

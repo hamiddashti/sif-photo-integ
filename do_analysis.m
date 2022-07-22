@@ -6,9 +6,9 @@ calibrate_Phi = 1;
 
 %% optical coefficient file for Fluspect
 % load(strcat(data_dir, '/optical_coefficients/optipar2019.mat'));
-load('../data/optical_coefficients/optipar2019.mat');
+load('./data/optical_coefficients/optipar2019.mat');
 %% this part can be commented out once it the optical parameters have been retrieved and the output has been saved
-datdir = '../data/output/fluspect_output/2015/2019-06-19-1452/'; %this is the directory where the retrieved data are saved
+datdir = './data/output/fluspect_output/2015/2019-06-19-1452/'; %this is the directory where the retrieved data are saved
 load([datdir 'spectral.mat']);
 load([datdir 'measured.mat']);
 load([datdir 'leafopt.mat']);

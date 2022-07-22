@@ -27,7 +27,6 @@ load([datdir 'leafbio.mat']);
 load([datdir 'optipar.mat']);
 
 spectral.iwlF = (640:850)-399;
-
 I = find(leafbio_all.Cab>20 & leafbio_all.Cab<50);
 
 %% carry out the forward simulations

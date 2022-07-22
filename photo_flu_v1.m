@@ -111,7 +111,8 @@ subplot(2,1,2)
 title("F in forward direction",'FontSize', 8)
 xlabel('wl (nm)','FontSize', 10)
 ylabel('L_F (W m^{-2}\mum^{-1}sr^{-1})','FontSize', 10)
-h = axes(fig,'visible','off'); 
+h = axes(
+,'visible','off'); 
 c = colorbar(h,'Position',[0.93 0.168 0.02 0.7]);  % attach colorbar to h
 colormap(c,'jet')
 caxis(h,[0,2400]);             

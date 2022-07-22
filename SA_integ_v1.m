@@ -67,8 +67,9 @@ DistrPar = {[thresh_low(1) thresh_high(1)];...
 % Sample parameter space using the resampling strategy proposed by 
 % (Saltelli, 2008; for reference and more details, see help of functions
 % vbsa_resampling and vbsa_indices) 
-SampStrategy = 'lhs' ;
-N = 30000 ; % Base sample size.
+SampStrategy = 'lhs';
+% SampStrategy = 'rsu' ;
+N = 10000; % Base sample size.
 myfun = 'chi_fun_integ'; 
 type = "not_combined";
 k=28; % Random measured data from Vilian's dataset
@@ -83,21 +84,21 @@ Fd_mes(spectral.wlF<660) = NaN;
 % samples that will be evaluated. In fact, because of the resampling
 % strategy, the total number of model evaluations to compute the two
 % variance-based indices is equal to N*(M+2) 
-X = AAT_sampling(SampStrategy,M,DistrFun,DistrPar,2*N);
+X = AAT_sampling(SampStrategy,M,DistrFun,DistrPar,N);
 [ XA, XB, XC ] = vbsa_resampling(X);
 
 YA = model_evaluation(myfun,XA,v,spectral,optipar,type,E,Fu_mes,Fd_mes) ; % size (N,P)
 YB = model_evaluation(myfun,XB,v,spectral,optipar,type,E,Fu_mes,Fd_mes) ; % size (N,P)
 YC = model_evaluation(myfun,XC,v,spectral,optipar,type,E,Fu_mes,Fd_mes) ; % size (N,P)
 
-
+Nboot=500;
 % select the j-th model output:
 j = 1 ; 
 [  Si1, STi1, Si_sd1, STi_sd1, Si_lb1,STi_lb1,Si_ub1,STi_ub1  ] = ...
-    vbsa_indices(YA(:,j),YB(:,j),YC(:,j),N);
+    vbsa_indices(YA(:,j),YB(:,j),YC(:,j),Nboot);
 j = 2 ;
 [  Si2, STi2, Si_sd2, STi_sd2, Si_lb2,STi_lb2,Si_ub2,STi_ub2  ] = ...
-    vbsa_indices(YA(:,j),YB(:,j),YC(:,j),N);
+    vbsa_indices(YA(:,j),YB(:,j),YC(:,j),Nboot);
 % Compare boxplots:
 X_Labels = {'Abs','beta','CB6F','RUB','Kf','Kd','Kp1','Kn1','Kp2','Kq',...
     'Knl','Knc','Kc','Ko','Cab','Cw','Cdm','Cca','N','Cx','Cant'} ;
@@ -111,22 +112,8 @@ legend('main effects','total effects')
 title('Fd')
 
 %%
+NN = [N/10:N/10:N] ;
+[ Sic1, STic1 ] = vbsa_convergence([YA(:,1);YB(:,1);YC(:,1)],M,NN);
 figure
-subplot(121)
-stackedbar([Si1; Si2],[],'main effects',[],{'Fu','Fd'})
-subplot(122)
-stackedbar([STi1; STi2],X_Labels,'total effects',[],{'Fd','fu'})
-
-% Compute confidence bounds:
-Nboot = 500 ;
-[ Si, STi, Si_sd, STi_sd, Si_lb, STi_lb, Si_ub, STi_ub ] = vbsa_indices(YA(:,1),YB(:,1),YC(:,1),Nboot);
-% Plot:
-figure % plot both in one plot:
-boxplot2([Si; STi],X_Labels,[ Si_lb; STi_lb ],[ Si_ub; STi_ub ])
-legend('main effects','total effects')
-
-[ Si, STi, Si_sd, STi_sd, Si_lb, STi_lb, Si_ub, STi_ub ] = vbsa_indices(YA(:,2),YB(:,2),YC(:,2),Nboot);
-% Plot:
-figure % plot both in one plot:
-boxplot2([Si; STi],X_Labels,[ Si_lb; STi_lb ],[ Si_ub; STi_ub ])
-legend('main effects','total effects')
+subplot(121); plot_convergence(Sic1,NN*(M+2),[],[],[],'model evals','main effect',X_Labels)
+subplot(122); plot_convergence(STic1,NN*(M+2),[],[],[],'model evals','total effect',X_Labels);

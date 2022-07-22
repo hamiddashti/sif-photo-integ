@@ -17,9 +17,9 @@ T = data.Tin;
 T_u = 'degrees C';
 T_d = 'Leaf temperature';
 
-C = data.Cin./1e6;
-C_u = 'bar';
-C_d = 'Partial pressure of CO2';
+% Cin = data.Cin./1e6;
+% C_u = 'bar';
+% C_d = 'Partial pressure of CO2';
 
 O = data.Oin./1e3;
 O_u = 'bar';
@@ -46,6 +46,7 @@ RUB_d = 'Rubisco density';
 Rds = 0.01; 
 Rds_u = 'dimensionless';
 Rds_d = 'Scalar for dark respiration';
+
 
 %% Assign values for photochemical constants
 

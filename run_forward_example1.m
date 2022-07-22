@@ -23,16 +23,16 @@ clc; % command window
 
 % Set up subdirectories
 currdir = pwd;
-workdir = fullfile(currdir,'/scripts');
-resultsdir = fullfile(currdir,'/outputs');
+workdir = fullfile(currdir,'../scripts');
+resultsdir = fullfile(currdir,'../outputs');
 
 %% Select inputs
 
 % Read in data file and create output directory
 cd(resultsdir);
 outputname = 'Example-1-static_tmp';
-mkdir(outputname);
-cd(workdir);
+% mkdir(outputname);
+% cd(workdir);
 
 % Specify environmental conditions
 n = 2400;                                   % Steps in vector
